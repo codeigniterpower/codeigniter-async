@@ -30,6 +30,7 @@ class Libasync
         $parts = parse_url($remoteurl);
         $errno = 0;
         $errstr = "";
+        // deteccion de tipo invocacion, si socket local o url remota
         $schemeurl = parse_url($remoteurl, PHP_URL_SCHEME);
         if($schemeurl == 'https')
         {
@@ -41,8 +42,10 @@ class Libasync
             $port = 80;
             $protocol = 'ssl://';
         }
+        // deteccion de que controller se ha llamado (WIP)
+        $methodruta = parse_url($remoteurl, PHP_URL_PATH);//$parts['path'];
         $fproc = fsockopen($protocol . $parts['host'], $port, $errno, $errstr, 30);
-        $out = "POST ".$parts['path']." HTTP/1.1\n";
+        $out = "POST ".$methodruta." HTTP/1.1\n";
         $out.= "Host: ".$parts['host']."\n";
         $out.= "Content-Type: application/x-www-form-urlencoded\n";
         $out.= "Content-Length: ".strlen($post_string)."\n";
