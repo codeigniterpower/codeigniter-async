@@ -18,13 +18,13 @@ class Libasync
     }
  
     /**
-     * name: call_remote_post
+     * name: from_remote_do_remote_in_back
      * @description llamada remota empleando emulacion de datos por post
      * @param $params datos del formulario emulado o cada parametro o dato enviar como si fuera el form
      * @param $remoteurl = NULL
      * @return void
      */
-    function call_remote_post($params, $remoteurl = NULL)
+    function from_remote_do_remote_in_back($params, $remoteurl = NULL)
     {
         $post_string = http_build_query($params);
         $parts = parse_url($remoteurl);
