@@ -40,17 +40,17 @@ class Libasync
         if($schemeurl == 'http')
         {
             $port = 80;
-            $protocol = 'ssl://';
+            $protocol = '';
         }
         // deteccion de que controller se ha llamado (WIP)
         $methodruta = parse_url($remoteurl, PHP_URL_PATH);//$parts['path'];
         $fproc = fsockopen($protocol . $parts['host'], $port, $errno, $errstr, 30);
-        $out = "POST ".$methodruta." HTTP/1.1\n";
-        $out.= "Host: ".$parts['host']."\n";
-        $out.= "Content-Type: application/x-www-form-urlencoded\n";
-        $out.= "Content-Length: ".strlen($post_string)."\n";
-        $out.= "Connection: Close\n";
-        if (isset($post_string)) $out.= $post_string;
+        $out = "POST ".$methodruta." HTTP/1.1\r\n";
+        $out.= "Host: ".$parts['host']."\r\n";
+        $out.= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $out.= "Content-Length: ".strlen($post_string)."\r\n";
+        $out.= "Connection: Close\r\n\r\n";
+        $out.= $post_string;
         fwrite($fproc, $out);
         fclose($fproc);
     }
