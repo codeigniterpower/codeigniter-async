@@ -31,13 +31,24 @@ class asremote extends CI_Controller
      *  @param :void
      *  @return : void
      */
-    public function makeafileremote()
+    public function makeafileremote($name = null, $data = '')
     {
         $this->load->helper('file');
 
-        $data = $this->input->post_get('content');
-        $name = $this->input->post_get('name');
-        $results = write_file($name, $data, w+))
+        $data = $this->input->get_post('content');
+        $name = $this->input->get_post('name');
+        $sussess = 'not yet';
+
+        log_message('info', __CLASS__ . '/'. __METHOD__ .' received: '. $name . ', '.$data );
+        $results = write_file($name, $data, 'w+');
+        log_message('error', __CLASS__ . '/'. __METHOD__ .' file lib'. print_r($results, true) );
+
+        if($results)
+        {
+            $fileinfo = get_file_info($name,'server_path');
+            $sussess = $fileinfo['server_path'];
+        }   
+        log_message('error', __CLASS__ . '/'. __METHOD__ .' '.$sussess);
         
     }
 }

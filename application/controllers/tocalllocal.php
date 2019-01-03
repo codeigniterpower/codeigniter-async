@@ -30,15 +30,14 @@ class tocalllocal extends CI_Controller
      *  @param customcontent String: content of the remote task to perform
      *  @return : void
      */
-    public function callthelibrarytocallasremote($customcontent = "something in file")
+    public function callthelibrarytocallasremote()
     {
-        $this->load->helper(array('form', 'url'));
+        $this->load->library('libasync');
 
-        $url = base_url()."asremote/makeafileremote";
-
-        $param = array('name' => "ver.txt", 'content' => $customcontent );
-
-        $this->libasync->from_remote_do_remote_in_back($param, $url);
+        $formurl = site_url()."/asremote/makeafileremote";
+        $forminputs = array('name' => "ver2.txt", 'content' => "contenido del file" );
+        log_message('info', 'to lib '. $formurl.' '. print_r($forminputs, true) );
+        $this->libasync->from_remote_do_remote_in_back($formurl, $forminputs);
     }
 
 }
